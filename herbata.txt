@@ -1,4 +1,4 @@
-zdanie1
-zdanie2
-zdanie3
-zdanie4
+abc,dfg,hij,klm,nop,rqs,trv,gda,
+Lipton,Czarna,Czarna,250g,papierowe,10,24/27/2000,brak,
+3,,,,,,,,,
+4,1,1,1,1,1,1,1,1,
