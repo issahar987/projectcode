@@ -133,11 +133,9 @@ std::string to_string(const vector<T_dane_herbata>& entries)
 void save_to_file(vector<T_dane_herbata>& entries) {
 
     // saves entries to herbata.txt file
-    entries.push_back(get_from_user());
     fstream fout;
-    fout.open("herbata.txt", ios::out | ios::app);
-    fout<<endl;
-    fout<<to_string(entries[entries.size()-1]);
+    fout.open("herbata.txt", ios::out | ios::trunc);
+    fout<<to_string(entries);
     fout.close();
 }
 
@@ -175,6 +173,7 @@ int main () {
         switch ( character ) {
             case '1':
             {
+                database.push_back(get_from_user());
                 save_to_file(database);
                 break;
             }
@@ -188,9 +187,9 @@ int main () {
                     char number;
                     cin>>number;
                     string str_representation;
-                    str_representation.push_back(number);
-
-                    database.erase(database.begin() + std::stoi(str_representation));
+                    str_representation.push_back(number-1);
+                    database.erase(database.begin() + stoi(str_representation));
+                    save_to_file(database);
 
                     break;
                 }
