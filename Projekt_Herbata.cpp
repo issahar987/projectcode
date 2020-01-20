@@ -20,8 +20,9 @@ struct T_dane_herbata {
 };
 int get_line_number() {
     int number;
-    cout << "Podaj numer produktu: ";
-    cin>>number;
+
+    cout << "Podaj numer produktu: ";   cin>>number;
+
     return number-1;
 }
 
@@ -31,9 +32,9 @@ T_dane_herbata from_string(const string& data)
     // example data:  "Lipton,Czarna,Czarna,250g,papierowe,10,24/27/2000,brak,"
 
     T_dane_herbata result;
-
     string entry{""};
     unsigned int k = 1;
+
     for (const char& ch : data)
     {
         if (ch == ',') {
@@ -110,6 +111,7 @@ std::string to_string(const vector<T_dane_herbata>& entries)
     // returns a string containing vector<T_dane_herbata> representation
     string result{""};
     int iterated = 0;
+
     for (const T_dane_herbata& entry : entries) {
         ++iterated;
 
@@ -122,16 +124,21 @@ std::string to_string(const vector<T_dane_herbata>& entries)
     return result;
 }
 string get_date_from_user() {
-    int day; int month; int year;
+    int day;
+    int month;
+    int year;
+    string result = "";
+
     cout<<"Podaj dzien: ";;  cin>>day;
     cout<<"Podaj miesiac: "; cin>>month;
     cout<<"Podaj rok: ";     cin>>year;
-    string result = "";
     result = to_string(day) + '/' + to_string(month) + '/' + to_string(year);
+
     return result;
 }
 T_dane_herbata get_from_user() {
     T_dane_herbata result;
+
     cin.ignore();
     cout<<"Dane dotyczace herbaty: \n";
     cout<<"Nazwa herbaty               = "; getline(std::cin,result.name);
@@ -141,7 +148,6 @@ T_dane_herbata get_from_user() {
     cout<<"typ_opakowania              = "; getline(std::cin,result.type_package);
     cout<<"Dostepne sztuki w magazynie = "; getline(std::cin,result.available_items);
     cout<<"Data dostawy herbaty:\n"; result.time_delivery = get_date_from_user();
-    cin.ignore();
     cout<<"Uwagi dotyczace herbaty     = "; getline(std::cin,result.comments);
 
     return result;
@@ -159,25 +165,29 @@ void display_from_memory (const vector<T_dane_herbata>& entry, int n) {
         cout<<"Uwagi dotyczace herbaty     = "<<entry[n].comments<<endl;
 }
 void save_to_file(const vector<T_dane_herbata>& entries) {
-
     // saves entries to herbata.txt file
     fstream fout;
+
     fout.open("herbata.txt", ios::out | ios::trunc);
     fout<<to_string(entries);
     fout.close();
+
 }
 void change_line(vector<T_dane_herbata>& entries) {
     int number = get_line_number();
+
     display_from_memory(entries, number);
     entries.push_back(get_from_user());
     entries[number] = entries[entries.size()-1];
     entries.erase(entries.end() );
     save_to_file(entries);
+
 }
 void change_line_properties(vector<T_dane_herbata>& entries) {
     T_dane_herbata result;
     string line;
     int number = get_line_number();
+
     display_from_memory(entries, number);
     cout<<"\nCo zmienic w produkcie? [nazwa/gatunek/typ/waga/opakowanie/ilosc/data/uwagi]: ";
     cin.ignore();
@@ -223,6 +233,7 @@ void change_line_properties(vector<T_dane_herbata>& entries) {
         entries[number].comments = result.comments;
     }
     save_to_file(entries);
+
 }
 
 /*
@@ -247,7 +258,8 @@ void tests()
 */
 void searching(const vector<T_dane_herbata>& data) {
     cout<<"\nMozna wyszukac po:[nazwie/gatunku/typie]\n";
-    string line; string temporary;
+    string line, temporary;
+
     cin.ignore();
     getline(cin,line);
     for(int i = 1; i<line.size(); i++){
@@ -264,11 +276,12 @@ void searching(const vector<T_dane_herbata>& data) {
         int k=0;
         for (int i=0;i<data.size();i++) {
             smatch result;
+
             temporary = "";
             temporary = data[i].name;
-                for(int i = 0; i<temporary.size(); i++){
-                    temporary[i] = tolower(temporary[i]);
-                }
+            for(int i = 0; i<temporary.size(); i++){
+                temporary[i] = tolower(temporary[i]);
+            }
             if( regex_search(temporary, result, regex(line) ) ) {
                 display_from_memory(data,i);
                 k++;
@@ -280,7 +293,6 @@ void searching(const vector<T_dane_herbata>& data) {
     if (line =="gatunku" || line =="gatunek") {
         line = "";
         cout<<"\nJaki gatunek herbaty?\n";
-
         getline(cin,line);
         for(int i = 0; i<line.size(); i++){
             line[i] = tolower(line[i]);
@@ -288,11 +300,12 @@ void searching(const vector<T_dane_herbata>& data) {
         int k=0;
         for (int i=0;i<data.size();i++) {
             smatch result;
+
             temporary = "";
             temporary = data[i].grade;
-                for(int i = 0; i<temporary.size(); i++){
-                    temporary[i] = tolower(temporary[i]);
-                }
+            for(int i = 0; i<temporary.size(); i++){
+                temporary[i] = tolower(temporary[i]);
+            }
             if( regex_search(temporary, result, regex(line) ) ) {
                 display_from_memory(data,i);
                 k++;
@@ -313,11 +326,12 @@ void searching(const vector<T_dane_herbata>& data) {
         int k=0;
         for (int i=0;i<data.size();i++) {
             smatch result;
+
             temporary = "";
             temporary = data[i].type;
-                for(int i = 0; i<temporary.size(); i++){
-                    temporary[i] = tolower(temporary[i]);
-                }
+            for(int i = 0; i<temporary.size(); i++){
+                temporary[i] = tolower(temporary[i]);
+            }
             if( regex_search(temporary, result, regex(line) ) ) {
                 display_from_memory(data,i);
                 k++;
@@ -332,8 +346,9 @@ void searching(const vector<T_dane_herbata>& data) {
 int main () {
     vector<T_dane_herbata> database = load_from_file();
     char character;
-    while (character != 'k')
-    {
+
+    while (character != 'k'){
+
         cout<<"================================\n";
         cout<<" Co chcesz zrobic?"<<endl;
         cout<<" Dodac produkt: wpisz 1"<<endl;
@@ -350,9 +365,9 @@ int main () {
 
         switch ( character ) {
             case '1':{
-                    database.push_back(get_from_user());
-                    save_to_file(database);
-                    break;
+                database.push_back(get_from_user());
+                save_to_file(database);
+                break;
                 }
             case '2':{
                 //cout << to_string(database) << endl;
@@ -361,21 +376,21 @@ int main () {
                 break;
                 }
             case '3':{
-                    database.erase(database.begin() + get_line_number() );
-                    save_to_file(database);
-                    break;
+                database.erase(database.begin() + get_line_number() );
+                save_to_file(database);
+                break;
                 }
             case '4':{
-                    change_line(database);
-                    break;
+                change_line(database);
+                break;
                 }
             case '5':{
-                    change_line_properties(database);
-                    break;
+                change_line_properties(database);
+                break;
                 }
             case '6':{
-                    searching(database);
-                    break;
+                searching(database);
+                break;
                 }
             /*case '9':{
                 tests();
@@ -387,5 +402,6 @@ int main () {
                 }
         }
     }
+
     return 0;
 }
