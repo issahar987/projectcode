@@ -2,5 +2,5 @@ English breakfast,Assam i Cejlon,Czarna,1000g,Metalowe,20,1/2/2020,Popularna kom
 Golden monkey,Yunnan,Czarna,1000g,Metalowe,40,2/2/2020,Herbata czarna Golden Monkey(Golden Hou) z prowincji Yunnan,
 First flush,Darjeeling,Czarna,100g,papierowy,80,3/3/2020,Herbata indyjska Darjeeling z pierwszego zbioru,
 Second flush ftgfopi,Darjeeling,Czarna,100g,papierowy,65,24/3/2020,Herbata indyjska Darjeeling z drugiego zbioru,
-Da hong pao,Oolong,Czarna,1000g,Metalowe,12,26/1/2020,Legendarny czarny Oolong,
+Da Hong Pao,Oolong,Czarna,1000g,Metalowe,12,26/1/2020,Legendarny czarny Oolong,
 Anji bai cha,Indyjska,Zielona,1000g,Metalowe,9,25/1/2020,Zielona herbata przypominajaca biala,
