@@ -61,7 +61,8 @@ T_dane_herbata from_string(const string& data) {
             }
             entry.clear();
             struct_element++;
-        } else {
+        }
+        else {
             entry.push_back(character);
         }
     }
@@ -174,7 +175,7 @@ void save_to_file(const vector<T_dane_herbata>& entries) {
 
 void change_product_details(vector<T_dane_herbata>& entries) {
     // allows user to change data of entire product contained in specific index of vector<T_dane_herbata>
-    int index = get_product_index_number();
+    int index = get_product_index();
 
     display_from_memory(entries, index);
     entries.push_back(get_from_user());
@@ -187,7 +188,7 @@ void change_product_element_details(vector<T_dane_herbata>& entries) {
     // allows user to change data of specific product element contained in specific index of vector<T_dane_herbata>
     T_dane_herbata result;
     string product_element;
-    int index = get_product_index_number();
+    int index = get_product_index();
 
     display_from_memory(entries, index);
     cout<<"\nCo zmienic w produkcie? [nazwa/gatunek/typ/waga/opakowanie/ilosc/data/uwagi]: ";
@@ -287,7 +288,6 @@ void product_search(const vector<T_dane_herbata>& data) {
         }
         if (search_true==0)
             cout<<"\nNie istnieje produkt o takim gatunku herbaty\n";
-
     }
     if (searched_element =="typie" || searched_element =="typ") {
         cout<<"\nJaki typ herbaty?\n";
@@ -310,7 +310,6 @@ void product_search(const vector<T_dane_herbata>& data) {
         }
         if (search_true)
             cout<<"\nNie istnieje produkt o takim typie herbaty\n";
-
     }
 }
 
@@ -358,7 +357,7 @@ int main () {
                 break;
                 }
             case '6': {
-                searching(database);
+                product_search(database);
                 break;
                 }
             default: {
