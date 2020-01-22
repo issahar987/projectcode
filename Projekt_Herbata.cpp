@@ -241,18 +241,20 @@ void product_search(const vector<T_dane_herbata>& data) {
     // allows user to search for specific name/grade/type of product
     cout<<"\nMozna wyszukac po:[nazwie/gatunku/typie]\n";
     string key_word;
+    string container = "";
     string struct_element;
     string searched_element;
-    bool search_true=false;
+    bool search_false = true;
 
     cin.ignore();
     getline(cin,searched_element);
     if (searched_element =="nazwie" || searched_element =="nazwa") {
         cout<<"\nJaka nazwa herbaty?\n";
         getline(cin,key_word);
-        for(int i = 0; i<key_word.size(); i++){
-            key_word[i] = tolower(key_word[i]);
+        for (const char& character : key_word) {
+            container += tolower(character);
         }
+        key_word = container;
         for (int i=0;i<data.size();i++) {
             smatch result;
 
@@ -262,18 +264,19 @@ void product_search(const vector<T_dane_herbata>& data) {
             }
             if( regex_search(struct_element, result, regex(key_word) ) ) {
                 display_from_memory(data,i);
-                search_true=true;
+                search_false=false;
             }
         }
-        if (search_true)
+        if (search_false)
             cout<<"\nNie istnieje produkt o takiej nazwie\n";
     }
     if (searched_element =="gatunku" || searched_element =="gatunek") {
         cout<<"\nJaki gatunek herbaty?\n";
         getline(cin,key_word);
-        for(int i = 0; i<key_word.size(); i++){
-            key_word[i] = tolower(key_word[i]);
+        for (const char& character : key_word) {
+            container += tolower(character);
         }
+        key_word = container;
         for (int i=0;i<data.size();i++) {
             smatch result;
 
@@ -283,19 +286,20 @@ void product_search(const vector<T_dane_herbata>& data) {
             }
             if( regex_search(struct_element, result, regex(key_word) ) ) {
                 display_from_memory(data,i);
-                search_true=true;
+                search_false=false;
             }
         }
-        if (search_true==0)
+        if (search_false)
             cout<<"\nNie istnieje produkt o takim gatunku herbaty\n";
     }
     if (searched_element =="typie" || searched_element =="typ") {
         cout<<"\nJaki typ herbaty?\n";
 
         getline(cin,key_word);
-        for(int i = 0; i<key_word.size(); i++){
-            key_word[i] = tolower(key_word[i]);
+        for (const char& character : key_word) {
+            container += tolower(character);
         }
+        key_word = container;
         for (int i=0;i<data.size();i++) {
             smatch result;
 
@@ -305,10 +309,10 @@ void product_search(const vector<T_dane_herbata>& data) {
             }
             if( regex_search(struct_element, result, regex(key_word) ) ) {
                 display_from_memory(data,i);
-                search_true=true;
+                search_false=false;
             }
         }
-        if (search_true)
+        if (search_false)
             cout<<"\nNie istnieje produkt o takim typie herbaty\n";
     }
 }
